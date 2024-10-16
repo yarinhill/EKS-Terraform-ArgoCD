@@ -6,7 +6,6 @@ on:
       - main
     paths: 
        - '.github/workflows/aws.yaml'
-
 env:
   IMAGE_TAG: 0  # Change to 1
 
