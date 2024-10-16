@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mongodb
+  namespace: argocd
+spec:
+  destination:
+    name: ''
+    namespace: default
+    server: https://kubernetes.default.svc
+  source:
+    path: helm/mongodb/
+    repoURL: https://github.com/yarinhill/NodeApp.git
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  sources: []
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

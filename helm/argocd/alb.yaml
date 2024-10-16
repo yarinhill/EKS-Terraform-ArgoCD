@@ -1,0 +1,29 @@
+server:
+  service:
+    type: LoadBalancer
+    targetPort: 8080   
+  configs:
+    params:
+      server.insecure: true 
+  ingress:
+    enabled: true
+    ingressClassName: alb
+    rules:
+      http:
+        path: /
+        pathType: Prefix
+        backend:
+          service:
+            #name: argocd-server
+            name: argocd
+            #port:
+            #  number: 8080
+    annotations:
+      kubernetes.io/ingress.class: alb
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/security-groups: "${ARGOCD_LB_SG_ID}"
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+      alb.ingress.kubernetes.io/subnets: "${SUBNET_IDS}"
+      alb.ingress.kubernetes.io/healthcheck-port: "80"
+      alb.ingress.kubernetes.io/healthcheck-protocol: "HTTP"
+      alb.ingress.kubernetes.io/healthcheck-path: "/healthz"

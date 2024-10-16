@@ -1,0 +1,11 @@
+server:
+  service:
+    type: LoadBalancer
+    targetPort: 8080
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-security-groups: "${ARGOCD_LB_SG_ID}"
+      service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+      service.beta.kubernetes.io/aws-load-balancer-subnets: "${SUBNET_IDS}"
+  configs:
+    params:
+      server.insecure: true  # Disable HTTPS, serve only HTTP
