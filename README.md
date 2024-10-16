@@ -34,7 +34,7 @@ Uncomment the lines in terraform/s3.tf file, and edit the details to suit your c
 vim terraform/s3.tf
 ```
 
-### 03.
+### 02.
 
 To connect to the Bastion Instance, you need to generate an SSH key pair. Use the following command in your terminal:
 
@@ -42,7 +42,7 @@ To connect to the Bastion Instance, you need to generate an SSH key pair. Use th
 ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa_ter
 ```
 
-### 04.
+### 03.
 
 Navigate to the terraform directory and edit the variables.tf file to suit your enviorment (These components will be created by terraform):
 
@@ -51,7 +51,7 @@ vim variables.tf
 ```
 
 
-### 05.
+### 04.
 
 Run the following commands to initialize, and apply the terraform files
 
@@ -60,7 +60,7 @@ terraform init
 terraform apply
 ```
 
-### 06.
+### 05.
 
 Copy the values displayed at the end of the Terraform creation process.
 
