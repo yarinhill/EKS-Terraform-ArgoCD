@@ -1,0 +1,48 @@
+name: Build and Push to Amazon ECR
+
+on:
+  push:
+    branches:
+      - main
+    paths: 
+       - '.github/workflows/aws.yaml'
+env:
+  IMAGE_TAG: 0 # Change to 1
+
+jobs:
+  build-and-push:
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Clone external GitHub repository
+        run: |
+          git clone https://github.com/yarinhill/NodeApp.git
+
+      - name: Build and Push Docker Image to ECR
+        env:
+          ECR_REGISTRY: "${{ secrets.ECR_REGISTRY_URL }}"
+        run: |
+          cd NodeApp/build/node-app/  # Change directory to where the Dockerfile is located
+          # Build the image with the specified static tag
+          docker build -t ${{ env.ECR_REGISTRY }}:${{ env.IMAGE_TAG }} .
+          
+          # Tag the image as latest
+          docker tag ${{ env.ECR_REGISTRY }}:${{ env.IMAGE_TAG }} ${{ env.ECR_REGISTRY }}:latest
+
+          # Push both tags to ECR
+          docker push ${{ env.ECR_REGISTRY }}:${{ env.IMAGE_TAG }}
+          docker push ${{ env.ECR_REGISTRY }}:latest
