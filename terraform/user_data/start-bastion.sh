@@ -31,7 +31,6 @@ EOF
 chmod +x /home/${remote_user}/bin/find_servers
 chmod 600 /home/${remote_user}/.ssh/id_rsa
 
-
 # Download and install eksctl
 sudo curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_Linux_$ARCH.tar.gz" | tar xz -C /tmp
 sudo mv /tmp/eksctl /usr/local/bin/
