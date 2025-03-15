@@ -38,6 +38,21 @@ variable "node_app_listen_port" {
   default = 3000
 }
 
+variable "remote_user" {
+  type    = string
+  default = "ec2-user"
+}
+
+variable "public_key_file" {
+  type    = string
+  default = "~/.ssh/id_rsa_ter.pub"
+}
+
+variable "private_key_file" {
+  type    = string
+  default = "~/.ssh/id_rsa_ter"
+}
+
 ##Uncomment for x86
 /*
 #x86-Bastion-Type
@@ -66,7 +81,6 @@ data "aws_ssm_parameter" "linuxAmi" { // x86
 */
 
 ##Comment for x86
-
 #ARM-Node-Type
 variable "node_instance_types" { // ARM
   type    = list(string)
@@ -89,19 +103,4 @@ variable ami_type { // ARM
 data "aws_ssm_parameter" "linuxAmi" { // ARM
   provider = aws.region-master
   name     = "/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-arm64-gp2"
-}
-
-variable "remote_user" {
-  type    = string
-  default = "ec2-user"
-}
-
-variable "public_key_file" {
-  type    = string
-  default = "~/.ssh/id_rsa_ter.pub"
-}
-
-variable "private_key_file" {
-  type    = string
-  default = "~/.ssh/id_rsa_ter"
 }
