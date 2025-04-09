@@ -95,6 +95,7 @@
                 "eks:CreateAccessEntry",
                 "eks:DescribeAccessEntry",
                 "eks:DeleteAccessEntry",
+                "eks:DescribeClusterVersions",
                 "iam:AddRoleToInstanceProfile",
                 "iam:CreateInstanceProfile",
                 "iam:GetInstanceProfile",
