@@ -52,7 +52,7 @@ module "eks" {
       protocol    = "tcp"
       source_security_group_id = aws_security_group.bastion-sg.id
       type        = "ingress"
-  }
+    }
     argocd_lb_sg ={
       description = "Allow Incoming Ports from ArgoCD-LB"
       from_port   = 30000
@@ -69,7 +69,7 @@ module "eks" {
       source_security_group_id = aws_security_group.node_app_lb_sg.id
       type        = "ingress"
     }
-}
+  }
   eks_managed_node_groups = {
     "${var.project_name}-eks-node" = {
       create_iam_role = false
@@ -107,6 +107,7 @@ module "eks" {
             type = "cluster"
           }
         }
+      }
     }
     */
     bastion = {
