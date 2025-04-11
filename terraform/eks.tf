@@ -8,11 +8,8 @@ module "eks" {
   enable_cluster_creator_admin_permissions = true
   cluster_endpoint_public_access  = true
   cluster_endpoint_private_access = true
-  create_cloudwatch_log_group = false
-  cloudwatch_log_group_retention_in_days = 0
   cluster_security_group_use_name_prefix = false
   node_security_group_use_name_prefix = false
-  cloudwatch_log_group_class = "INFREQUENT_ACCESS"
   enable_irsa = true
   iam_role_arn = aws_iam_role.eks-cluster.arn
   vpc_id =  module.vpc.vpc_id
